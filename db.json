@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop",
+      "price": 75000,
+      "category": "Electronics",
+      "description": "A powerful laptop for developers"
+    },
+    {
+      "id": 2,
+      "name": "Smartphone",
+      "price": 25000,
+      "category": "Electronics",
+      "description": "Latest model with all features"
+    },
+    {
+      "id": "e915",
+      "name": "i phone 17",
+      "description": "RAm-12GB, ROM-512GB",
+      "price": 120000,
+      "quantity": 1
+    }
+  ]
+}
