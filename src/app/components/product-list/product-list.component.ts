@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  // 🆕 Pagination
+  
   currentPage: number = 1;
   itemsPerPage: number = 5;
 
@@ -72,7 +72,7 @@ export class ProductListComponent implements OnInit {
     return filtered.slice(start, start + this.itemsPerPage);
   }
 
-  // 🆕 Total Pages
+  
   get totalPages(): number {
     return Math.ceil(this.filteredProducts().length / this.itemsPerPage);
   }

@@ -1,32 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Product } from '../model/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl ='http://localhost:5000/api/products';
+  private baseUrl = 'https://your-backend.vercel.app/api/products'; 
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<any> {
-    return this.http.get(this.apiUrl);
+    return this.http.get(this.baseUrl);
   }
 
   getProductById(id: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
   addProduct(product: any): Observable<any> {
-    return this.http.post(this.apiUrl, product);
+    return this.http.post(this.baseUrl, product);
   }
 
   updateProduct(id: number, product: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, product);
+    return this.http.put(`${this.baseUrl}/${id}`, product);
   }
 
   deleteProduct(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

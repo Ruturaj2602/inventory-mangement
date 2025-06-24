@@ -1,43 +1,47 @@
 <div class="container mt-4">
-  <h2>Product List</h2>
+  <h2 class="text-center mb-4">Product List</h2>
 
-  <!-- 🔍 Search Bar -->
-  <div class="mb-3">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search products..."
-      [(ngModel)]="searchText"
-    />
+  <div class="row mb-3">
+    <div class="col-12 col-md-6 mx-auto">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search products..."
+        [(ngModel)]="searchText"
+      />
+    </div>
   </div>
 
-  <a routerLink="/add" class="btn btn-primary mb-3">Add Product</a>
+  <div class="mb-3 text-center">
+    <a routerLink="/add" class="btn btn-primary">Add Product</a>
+  </div>
 
-  <table class="table table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th (click)="sortBy('name')">Name</th>
-        <th (click)="sortBy('description')">Description</th>
-        <th (click)="sortBy('price')">Price</th>
-        <th (click)="sortBy('quantity')">Quantity</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of filteredProducts()">
-        <td>{{ product.name }}</td>
-        <td>{{ product.description }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>
-          <a [routerLink]="['/edit', product.id]" class="btn btn-sm btn-info">Edit</a>
-          <button class="btn btn-sm btn-danger ms-2" (click)="deleteProduct(product.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th (click)="sortBy('name')">Name</th>
+          <th (click)="sortBy('description')">Description</th>
+          <th (click)="sortBy('price')">Price</th>
+          <th (click)="sortBy('quantity')">Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of filteredProducts()">
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <a [routerLink]="['/edit', product.id]" class="btn btn-sm btn-info mb-1">Edit</a>
+            <button class="btn btn-sm btn-danger ms-1" (click)="deleteProduct(product.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <!-- 🆕 Pagination Controls -->
   <nav *ngIf="filteredProducts().length > itemsPerPage">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
