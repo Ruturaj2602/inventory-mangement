@@ -7,7 +7,10 @@ import { Product } from '../model/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = 'https://your-backend.vercel.app/api/products'; 
+
+  private baseUrl = 'https://inventory-mangement-2.onrender.com/api/products'; 
+
+
 
   constructor(private http: HttpClient) {}
 
