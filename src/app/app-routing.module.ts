@@ -5,10 +5,11 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { EditProductComponent } from './components/edit-product/edit-product.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  
   { path: 'products', component: ProductListComponent },
   { path: 'add', component: AddProductComponent },
   { path: 'edit/:id', component: EditProductComponent },
+  { path: '**', redirectTo: 'products', pathMatch: 'full' },
 ];
 
 @NgModule({
