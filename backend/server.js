@@ -10,14 +10,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Fix: Enable proper CORS headers for Vercel frontend
-app.use(cors({
+// ✅ Fully configured CORS to fix preflight errors
+const corsOptions = {
   origin: 'https://inventorymangement.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
 
-// Middleware
+app.use(cors(corsOptions));
+
+// ✅ Allow preflight requests for all routes
+app.options('*', cors(corsOptions));
+
+// ✅ Body parser
 app.use(express.json());
 
 // ✅ MongoDB Connection
@@ -25,21 +31,21 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
-  console.log('MongoDB connected');
+  console.log('✅ MongoDB connected');
 }).catch(err => {
-  console.error('MongoDB connection failed:', err.message);
+  console.error('❌ MongoDB connection failed:', err.message);
 });
 
-// ✅ Routes
+// ✅ API Routes
 const productRoutes = require('./routes/products');
 app.use('/api/products', productRoutes);
 
 // ✅ Health check route
 app.get('/', (req, res) => {
-  res.send('Inventory Backend Running');
+  res.send('✅ Inventory Backend Running');
 });
 
 // ✅ Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
