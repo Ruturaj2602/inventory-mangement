@@ -3,14 +3,11 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ✅ Fully configured CORS to fix preflight errors
+// ✅ Fix: Fully configured CORS for Vercel origin
 const corsOptions = {
   origin: 'https://inventorymangement.vercel.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -20,32 +17,32 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// ✅ Allow preflight requests for all routes
+// ✅ Preflight support
 app.options('*', cors(corsOptions));
 
-// ✅ Body parser
+// ✅ Middleware
 app.use(express.json());
 
-// ✅ MongoDB Connection
+// ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
   console.log('✅ MongoDB connected');
 }).catch(err => {
-  console.error('❌ MongoDB connection failed:', err.message);
+  console.error('❌ MongoDB connection error:', err.message);
 });
 
-// ✅ API Routes
+// ✅ Routes
 const productRoutes = require('./routes/products');
 app.use('/api/products', productRoutes);
 
-// ✅ Health check route
+// ✅ Health check
 app.get('/', (req, res) => {
   res.send('✅ Inventory Backend Running');
 });
 
-// ✅ Start server
+// ✅ Server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
