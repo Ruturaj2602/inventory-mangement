@@ -11,7 +11,7 @@ import { Product } from 'src/app/model/product.model';
 })
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;
-  productId!: number;
+  productId!: string; 
 
   constructor(
     private fb: FormBuilder,
@@ -28,10 +28,11 @@ export class EditProductComponent implements OnInit {
       quantity: [0, [Validators.required, Validators.min(1)]]
     });
 
-    this.productId = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.productId) {
+    
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.productId = idParam;
       this.productService.getProductById(this.productId).subscribe((data: Product) => {
-
         this.productForm.patchValue(data);
       });
     }
@@ -40,7 +41,7 @@ export class EditProductComponent implements OnInit {
   updateProduct(): void {
     if (this.productForm.valid) {
       this.productService.updateProduct(this.productId, this.productForm.value).subscribe(() => {
-        this.router.navigate(['/products']);
+        this.router.navigate(['/products']); 
       });
     }
   }
