@@ -31,14 +31,14 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  deleteProduct(id?: number): void {
+  deleteProduct(id?: string): void {
     if (id === undefined) return;
     this.productService.deleteProduct(id).subscribe(() => {
       this.loadProducts();
     });
   }
 
-  sortBy(column: string): void {
+  sortBy(column: number): void {
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
