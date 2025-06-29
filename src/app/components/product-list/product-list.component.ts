@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 5;
+  successMessage: string='';
 
   constructor(private productService: ProductService) {}
 
@@ -28,11 +29,26 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(id?: string): void {
-    if (!id) return;
-    this.productService.deleteProduct(id).subscribe(() => {
-      this.loadProducts();
-    });
-  }
+  if (!id) return;
+
+  const confirmDelete = confirm('Are you sure you want to delete this product?');
+  if (!confirmDelete) return;
+
+  this.productService.deleteProduct(id).subscribe({
+    next: () => {
+      this.loadProducts(); // Refresh list
+      this.successMessage = '🗑️ Product deleted successfully!';
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        this.successMessage = '';
+      }, 3000);
+    },
+    error: (err) => {
+      console.error('❌ Failed to delete product:', err);
+    }
+  });
+}
 
   sortBy(column: keyof Product): void {
     if (this.sortColumn === column) {

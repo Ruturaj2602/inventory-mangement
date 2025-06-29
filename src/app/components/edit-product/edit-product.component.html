@@ -39,6 +39,10 @@
           <button type="submit" class="btn btn-primary">Update</button>
           <a routerLink="/products" class="btn btn-secondary">Cancel</a>
         </div>
+        <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
+  {{ successMessage }}
+</div>
+
       </form>
     </div>
   </div>

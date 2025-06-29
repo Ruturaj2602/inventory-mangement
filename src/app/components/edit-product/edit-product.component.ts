@@ -12,6 +12,7 @@ import { Product } from 'src/app/model/product.model';
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;
   productId!: string;
+  successMessage: string='';
 
   constructor(
     private fb: FormBuilder,
@@ -40,15 +41,28 @@ export class EditProductComponent implements OnInit {
     }
   }
 
-  updateProduct(): void {
-    if (this.productForm.valid && this.productId) {
-      this.productService.updateProduct(this.productId, this.productForm.value).subscribe(() => {
-        this.router.navigate(['/products']);
-      }, error => {
-        console.error(' Update failed:', error);
+ updateProduct(): void {
+  if (this.productForm.valid) {
+    const updatedProduct = this.productForm.value;
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.productService.updateProduct(id, updatedProduct).subscribe({
+        next: () => {
+          this.successMessage = '✅ Product updated successfully!';
+
+          // Optional: wait and then navigate
+          setTimeout(() => {
+            this.successMessage = '';
+            this.router.navigate(['/products']);
+          }, 2000);
+        },
+        error: (err) => {
+          console.error('❌ Update failed:', err);
+        }
       });
-    } else {
-      console.error(' Invalid form or missing product ID');
     }
   }
+}
+
 }

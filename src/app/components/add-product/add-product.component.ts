@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class AddProductComponent implements OnInit {
   productForm!: FormGroup;
+  successMessage: string= "";
 
   constructor(
     private fb: FormBuilder,
@@ -26,11 +27,22 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  addProduct(): void {
-    if (this.productForm.valid) {
-      this.productService.addProduct(this.productForm.value).subscribe(() => {
-        this.router.navigate(['/products']);
-      });
-    }
+ addProduct(): void {
+  if (this.productForm.valid) {
+    this.productService.addProduct(this.productForm.value).subscribe({
+      next: () => {
+        this.successMessage = '✅ Product added successfully!';
+
+        // Optional: wait 2 seconds before navigating
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/products']);
+        }, 2000);
+      },
+      error: (err) => {
+        console.error('Add product failed:', err);
+      }
+    });
   }
+}
 }
