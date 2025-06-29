@@ -1,5 +1,5 @@
 export interface Product {
-  id?: number; // Optional during creation
+  _id?: string; 
   name: string;
   description: string;
   price: number;
