@@ -9,7 +9,11 @@ import { Product } from 'src/app/model/product.model';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   searchText: string = '';
+<<<<<<< HEAD
   sortColumn: keyof Product = 'name'; // Updated: strongly typed
+=======
+  sortColumn: keyof Product = 'name'; 
+>>>>>>> 49dc028 (savepoint before pulling)
   sortDirection: 'asc' | 'desc' = 'asc';
 
   currentPage: number = 1;
@@ -27,14 +31,23 @@ export class ProductListComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   deleteProduct(id?: string): void {
     if (!id) return;
+=======
+  deleteProduct(id?: number): void {
+    if (id === undefined) return;
+>>>>>>> 49dc028 (savepoint before pulling)
     this.productService.deleteProduct(id).subscribe(() => {
       this.loadProducts();
     });
   }
 
+<<<<<<< HEAD
   sortBy(column: keyof Product): void {
+=======
+  sortBy(column: string): void {
+>>>>>>> 49dc028 (savepoint before pulling)
     if (this.sortColumn === column) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
