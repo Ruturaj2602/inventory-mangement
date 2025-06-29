@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../model/product.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-
-  private baseUrl = 'https://inventory-mangement-2.onrender.com/api/products'; 
+private baseUrl = environment.apiBaseUrl;
+  //private baseUrl = 'https://inventory-mangement-2.onrender.com/api/products';// 
+  // private baseUrl = 'http://localhost:5000/api/products' 
 
 
 
