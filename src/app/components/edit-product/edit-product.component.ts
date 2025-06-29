@@ -11,7 +11,7 @@ import { Product } from 'src/app/model/product.model';
 })
 export class EditProductComponent implements OnInit {
   productForm!: FormGroup;
-  productId: string = '';  // MUST be string
+  productId: string = '';  
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +28,7 @@ export class EditProductComponent implements OnInit {
       quantity: [0, [Validators.required, Validators.min(1)]]
     });
 
-    // ✅ Get ID from route
+    
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.productId = id;
@@ -36,7 +36,7 @@ export class EditProductComponent implements OnInit {
         this.productForm.patchValue(data);
       });
     } else {
-      console.error('❌ No product ID found in URL');
+      console.error('No product ID found in URL');
     }
   }
 
@@ -46,7 +46,7 @@ export class EditProductComponent implements OnInit {
         this.router.navigate(['/products']);
       });
     } else {
-      console.error('❌ Invalid form or missing product ID');
+      console.error(' Invalid form or missing product ID');
     }
   }
 }
