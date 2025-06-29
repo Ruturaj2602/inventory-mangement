@@ -34,8 +34,8 @@
           <td>{{ product.price }}</td>
           <td>{{ product.quantity }}</td>
           <td>
-            <a [routerLink]="['/edit', product._id]" class="btn btn-sm btn-info mb-1">Edit</a>
-           <button class="btn btn-sm btn-danger ms-1" (click)="deleteProduct(product._id)">Delete</button>
+            <a [routerLink]="['/edit', product.id]" class="btn btn-sm btn-info mb-1">Edit</a>
+           <button class="btn btn-sm btn-danger ms-1" (click)="deleteProduct(product.id)">Delete</button>
 
           </td>
         </tr>
