@@ -1,6 +1,7 @@
 <div class="container mt-4">
   <h2 class="text-center mb-4">Product List</h2>
 
+  <!-- Search Input -->
   <div class="row mb-3">
     <div class="col-12 col-md-6 mx-auto">
       <input
@@ -8,14 +9,17 @@
         class="form-control"
         placeholder="Search products..."
         [(ngModel)]="searchText"
+        (ngModelChange)="currentPage = 1"
       />
     </div>
   </div>
 
+  <!-- Add Product Button -->
   <div class="mb-3 text-center">
     <a routerLink="/add" class="btn btn-primary">Add Product</a>
   </div>
 
+  <!-- Product Table -->
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead class="table-dark">
@@ -28,22 +32,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of filteredProducts()">
+        <tr *ngFor="let product of paginatedProducts">
           <td>{{ product.name }}</td>
           <td>{{ product.description }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.quantity }}</td>
           <td>
-            <a [routerLink]="['/edit', product._id]" class="btn btn-sm btn-info mb-1">Edit</a>
-           <button class="btn btn-sm btn-danger ms-1" (click)="deleteProduct(product._id)">Delete</button>
-
+            <a
+              [routerLink]="['/edit', product._id]"
+              class="btn btn-sm btn-info mb-1"
+              >Edit</a
+            >
+            <button
+              class="btn btn-sm btn-danger ms-1"
+              (click)="deleteProduct(product._id)"
+            >
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <nav *ngIf="filteredProducts().length > itemsPerPage">
+  <!-- Pagination Controls -->
+  <nav *ngIf="filteredAndSortedProducts.length > itemsPerPage">
     <ul class="pagination justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button class="page-link" (click)="prevPage()">Previous</button>
@@ -54,7 +67,9 @@
         *ngFor="let page of [].constructor(totalPages); let i = index"
         [class.active]="currentPage === i + 1"
       >
-        <button class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</button>
+        <button class="page-link" (click)="goToPage(i + 1)">
+          {{ i + 1 }}
+        </button>
       </li>
 
       <li class="page-item" [class.disabled]="currentPage === totalPages">
@@ -63,7 +78,8 @@
     </ul>
   </nav>
 </div>
-<!-- ✅ Success Alert Message -->
+
+<!-- Success Alert Message -->
 <div *ngIf="successMessage" class="alert alert-success text-center mt-3">
   {{ successMessage }}
 </div>

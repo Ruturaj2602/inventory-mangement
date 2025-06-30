@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class AddProductComponent implements OnInit {
   productForm!: FormGroup;
   successMessage: string= "";
+deleteMessage: any;
 
   constructor(
     private fb: FormBuilder,
