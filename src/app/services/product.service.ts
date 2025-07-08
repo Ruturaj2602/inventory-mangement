@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ProductService {
-private baseUrl = environment.apiBaseUrl;
+private baseUrl =`${environment.apiBaseUrl}/products`;
   //private baseUrl = 'https://inventory-mangement-2.onrender.com/api/products';// 
   // private baseUrl = 'http://localhost:5000/api/products' 
 
